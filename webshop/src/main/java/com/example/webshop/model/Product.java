@@ -2,7 +2,8 @@ package com.example.webshop.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
+import lombok.ToString;
+@ToString
 public class Product {
     @Getter
     @Setter

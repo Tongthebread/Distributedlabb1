@@ -46,7 +46,6 @@ public class ShoppingCartServlet extends HttpServlet { ;
             // Get the session, or create a new one if it doesn't exist
             HttpSession session = request.getSession();
 
-            // Retrieve the cart from the session, or create a new cart if not present
             Cart cart = (Cart) session.getAttribute("cart");
             if (cart == null) {
                 cart = new Cart();

@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ProductDAO {
-    private final String url = "jdbc:postgresql://localhost:5432/webshop";
+    private final String url = "jdbc:postgresql://localhost:5432/products";
     private final String user = "postgres";
     private final String password = "psyke456SONG";
 

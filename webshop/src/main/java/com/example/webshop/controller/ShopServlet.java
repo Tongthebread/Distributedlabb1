@@ -9,14 +9,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
-@WebServlet(name = "ShopServlet", value = "/Shop-servlet")
+@WebServlet("/Shop-servlet")
 public class ShopServlet extends HttpServlet {
     private ProductDAO productDAO = new ProductDAO();
-    private Shop shop = new Shop();
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("products", shop.getProducts());
+        try {
+            request.setAttribute("products", productDAO.getAllProducts());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         // Forward the products to the index.jsp page
         request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);

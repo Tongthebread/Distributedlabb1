@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +45,7 @@
       <td>${product.quantity}</td>
       <td>
         <!-- Form to add product to cart -->
-        <form action="/ShoppingCart-servlet" method="POST">
+        <form action="/Shop-servlet" method="POST">
           <input type="hidden" name="productId" value="${product.id}" />
           <input type="number" name="quantity" value="1" min="1" max="${product.quantity}" />
           <button type="submit">Add to Cart</button>
@@ -55,6 +57,6 @@
 </table>
 
 <br/>
-<a href="/ShoppingCart-servlet">View Cart</a>
+<a href="/Shop-servlet">View Cart</a>
 </body>
 </html>

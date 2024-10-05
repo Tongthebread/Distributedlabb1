@@ -4,62 +4,54 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cart {
-
-    // A map to store products and their quantities
-    private Map<Product, Integer> items;
+    private Map<Integer, CartItem> items;
 
     public Cart() {
         items = new HashMap<>();
     }
-    public void addProduct(Product product, int quantity) {
-        // If the product already exists in the cart, update the quantity
-        if (items.containsKey(product)) {
-            items.put(product, items.get(product) + quantity);
+
+    public void addItem(Product product, int quantity) {
+        int productId = product.getId();
+        if (items.containsKey(productId)) {
+            // Om produkten redan finns i varukorgen, uppdatera kvantiteten
+            CartItem existingItem = items.get(productId);
+            existingItem.setQuantity(existingItem.getQuantity() + quantity);
         } else {
-            items.put(product, quantity);
+            // Annars, skapa en ny CartItem och lägg till den
+            CartItem newItem = new CartItem(product, quantity);
+            items.put(productId, newItem);
         }
     }
-    public Product getProductById(int id) {
-        for (Map.Entry<Product, Integer> entry : items.entrySet()) {
-            if (entry.getValue() == id) {
-                return entry.getKey();
+
+    // Ta bort en produkt från varukorgen
+    public void removeItem(int productId) {
+        items.remove(productId);
+    }
+
+    // Uppdatera kvantiteten för en produkt
+    public void updateItem(int productId, int quantity) {
+        if (items.containsKey(productId)) {
+            if (quantity > 0) {
+                items.get(productId).setQuantity(quantity);
+            } else {
+                // Om kvantiteten är 0 eller mindre, ta bort produkten
+                removeItem(productId);
             }
         }
-        return null;
     }
 
-    public void removeProduct(Product product) {
-        items.remove(product);
+    public Map<Integer, CartItem> getItems() {
+        return items;
     }
-
-    // Method to get the total price of items in the cart
     public double getTotalPrice() {
-        double total = 0;
-        for (Map.Entry<Product, Integer> entry : items.entrySet()) {
-            Product product = entry.getKey();
-            int quantity = entry.getValue();
-            total += product.getPrice() * quantity;
+        double total = 0.0;
+        for (CartItem item : items.values()) {
+            total += item.getProduct().getPrice() * item.getQuantity();
         }
         return total;
     }
 
-    // Method to clear the cart
-    public void clearCart() {
+    public void clear() {
         items.clear();
     }
-
-    // Method to get all items in the cart
-    public Map<Product, Integer> getItems() {
-        return items;
-    }
-
-    // Method to get the total number of products in the cart
-    public int getTotalItems() {
-        int totalItems = 0;
-        for (int quantity : items.values()) {
-            totalItems += quantity;
-        }
-        return totalItems;
-    }
 }
-

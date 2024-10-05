@@ -16,12 +16,19 @@ public class Product {
     private double price;
     @Getter
     @Setter
-    private int quantity;
-    public Product(int id, String name, double price, int quantity) {
+    private int stock;
+    @Getter
+    @Setter
+    private int categoryId;
+    public Product(){
+
+    }
+    public Product(int id, String name, double price, int stock, int categoryId) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
+        this.stock = stock;
+        this.categoryId = categoryId;
     }
 
 }

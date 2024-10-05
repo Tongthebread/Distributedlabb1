@@ -3,13 +3,5 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
-    <servlet>
-        <servlet-name>ShopServlet</servlet-name>
-        <servlet-class>com.example.webshop.controller.ShopServlet</servlet-class>
-    </servlet>
 
-    <servlet-mapping>
-        <servlet-name>ShopServlet</servlet-name>
-        <url-pattern>/Shop-servlet</url-pattern>
-    </servlet-mapping>
 </web-app>

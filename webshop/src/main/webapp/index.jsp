@@ -1,62 +1,16 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: tongs
+  Date: 05/10/2024
+  Time: 11:02
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>Shop Page</title>
-  <style>
-    table {
-      width: 50%;
-      border-collapse: collapse;
-    }
-    table, th, td {
-      border: 1px solid black;
-    }
-    th, td {
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-  </style>
+    <title>$Title$</title>
 </head>
 <body>
-
-<h1>Welcome to the Shop</h1>
-
-<!-- Shop Product Table -->
-<table>
-  <thead>
-  <tr>
-    <th>Product Name</th>
-    <th>Price</th>
-    <th>Quantity Available</th>
-    <th>Action</th>
-  </tr>
-  </thead>
-  <tbody>
-  <!-- Loop through each product and display them in the table -->
-  <c:forEach var="product" items="${products}">
-    <tr>
-      <td>${product.name}</td>
-      <td>${product.price}</td>
-      <td>${product.quantity}</td>
-      <td>
-        <!-- Form to add product to cart -->
-        <form action="/Shop-servlet" method="POST">
-          <input type="hidden" name="productId" value="${product.id}" />
-          <input type="number" name="quantity" value="1" min="1" max="${product.quantity}" />
-          <button type="submit">Add to Cart</button>
-        </form>
-      </td>
-    </tr>
-  </c:forEach>
-  </tbody>
-</table>
-
-<br/>
-<a href="/Shop-servlet">View Cart</a>
+$END$
 </body>
 </html>

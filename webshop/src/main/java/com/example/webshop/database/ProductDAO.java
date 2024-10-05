@@ -15,16 +15,17 @@ public class ProductDAO {
     }
 
     public void insertProduct(Product product) throws SQLException {
-        String query = "INSERT INTO products (name, price, quantity) VALUES (?, ?, ?)";
+        String query = "INSERT INTO products (name, price, stock, category_id) VALUES (?, ?, ?, ?)";
         try (Connection connection = connect();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrice());
-            preparedStatement.setInt(3, product.getQuantity());
+            preparedStatement.setInt(3, product.getStock());
+            preparedStatement.setInt(4, product.getCategoryId());
             preparedStatement.executeUpdate();
         }
-
     }
+
     public Product getProductById(int id) throws SQLException {
         String query = "SELECT * FROM products WHERE id = ?";
         try (Connection connection = connect();
@@ -36,23 +37,27 @@ public class ProductDAO {
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getDouble("price"),
-                        resultSet.getInt("quantity")
+                        resultSet.getInt("stock"),
+                        resultSet.getInt("category_id")
                 );
             }
         }
-        return null; // Return null if product not found
+        return null; // Returnerar null om produkten inte hittas
     }
+
     public void updateProduct(Product product) throws SQLException {
-        String query = "UPDATE products SET name = ?, price = ?, quantity = ? WHERE id = ?";
+        String query = "UPDATE products SET name = ?, price = ?, stock = ?, category_id = ? WHERE id = ?";
         try (Connection connection = connect();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrice());
-            preparedStatement.setInt(3, product.getQuantity());
-            preparedStatement.setInt(4, product.getId());
+            preparedStatement.setInt(3, product.getStock());
+            preparedStatement.setInt(4, product.getCategoryId());
+            preparedStatement.setInt(5, product.getId());
             preparedStatement.executeUpdate();
         }
     }
+
     public void deleteProduct(int id) throws SQLException {
         String query = "DELETE FROM products WHERE id = ?";
         try (Connection connection = connect();
@@ -61,6 +66,7 @@ public class ProductDAO {
             preparedStatement.executeUpdate();
         }
     }
+
     public ArrayList<Product> getAllProducts() throws SQLException {
         ArrayList<Product> products = new ArrayList<>();
         String query = "SELECT * FROM products";
@@ -73,7 +79,8 @@ public class ProductDAO {
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getDouble("price"),
-                        resultSet.getInt("quantity")
+                        resultSet.getInt("stock"),
+                        resultSet.getInt("category_id")
                 );
                 products.add(product);
             }

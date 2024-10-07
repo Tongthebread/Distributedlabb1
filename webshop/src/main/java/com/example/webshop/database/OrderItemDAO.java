@@ -19,7 +19,7 @@ public class OrderItemDAO {
         }
         return DriverManager.getConnection(url, user, password);
     }
-    public void insertOrderItem(OrderItem orderItem) throws SQLException {
+    public void insertOrderItem(OrderItemDTO orderItem) throws SQLException {
         String query = "INSERT INTO order_items (id, order_id, product_id, quantity, price_at_purchase) VALUES (?, ?, ?, ?)";
         try (Connection connection = connect();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -51,6 +51,6 @@ public class OrderItemDAO {
                 }
             }
         }
-        return orderItems;-
+        return orderItems;
     }
 }

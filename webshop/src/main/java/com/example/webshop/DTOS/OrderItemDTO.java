@@ -54,7 +54,7 @@ public class OrderItemDTO implements Serializable {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 

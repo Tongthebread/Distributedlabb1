@@ -73,7 +73,7 @@ public class OrderDAO {
         }
 
     }
-    public ArrayList<Order> getOrdersByUserId(int userId) throws SQLException {
+    public ArrayList<OrderDTO> getOrdersByUserId(int userId) throws SQLException {
         String query = "SELECT * FROM orders WHERE user_id = ?";
         ArrayList<Order> orders = new ArrayList<>();
         try (Connection connection = connect();

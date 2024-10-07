@@ -1,5 +1,7 @@
 package com.example.webshop.model;
 
+import com.example.webshop.DTOS.ProductDTO;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +12,7 @@ public class Cart {
         items = new HashMap<>();
     }
 
-    public void addItem(Product product, int quantity) {
+    public void addItem(ProductDTO product, int quantity) {
         int productId = product.getId();
         if (items.containsKey(productId)) {
             // Om produkten redan finns i varukorgen, uppdatera kvantiteten

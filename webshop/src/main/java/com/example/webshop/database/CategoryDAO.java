@@ -11,10 +11,15 @@ public class CategoryDAO {
     private final String password = "psyke456SONG";
 
     private Connection connect() throws SQLException {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return DriverManager.getConnection(url, user, password);
     }
     public void insert(Category category) throws SQLException {
-        String query = "INSERT INTO categories (category_name) VALUES (?, ?)";
+        String query = "INSERT INTO categories (category_name) VALUES (?)";
         try (Connection connection = connect();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, category.getCategoryName());

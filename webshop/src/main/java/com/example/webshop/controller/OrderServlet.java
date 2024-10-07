@@ -1,4 +1,6 @@
 package com.example.webshop.controller;
+import com.example.webshop.DTOS.OrderDTO;
+import com.example.webshop.DTOS.UserDTO;
 import com.example.webshop.model.Order;
 import com.example.webshop.model.Status;
 import com.example.webshop.model.User;
@@ -20,11 +22,11 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null||"staff".equalsIgnoreCase(String.valueOf(user.getRole()))) {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Denied");
         }
-        ArrayList<Order> orders = new ArrayList<>();
+        ArrayList<OrderDTO> orders = new ArrayList<>();
         req.setAttribute("orders", orders);
         req.getRequestDispatcher("WEB-INF/views/orders.jsp").forward(req, resp);
     }

@@ -1,5 +1,6 @@
 package com.example.webshop.service;
 
+import com.example.webshop.DTOS.ProductDTO;
 import com.example.webshop.database.ProductDAO;
 import com.example.webshop.model.Product;
 
@@ -11,16 +12,16 @@ public class ProductService {
     public ProductService() {
         this.productDAO = new ProductDAO();
     }
-    public ArrayList<Product> getProducts() throws SQLException {
+    public ArrayList<ProductDTO> getProducts() throws SQLException {
         return productDAO.getAllProducts();
     }
-    public Product searchProduct(int id) throws SQLException {
+    public ProductDTO searchProduct(int id) throws SQLException {
         return productDAO.getProductById(id);
     }
-    public void addProduct(Product product) throws SQLException {
+    public void addProduct(ProductDTO product) throws SQLException {
         productDAO.insertProduct(product);
     }
-    public void updateProduct(Product product) throws SQLException {
+    public void updateProduct(ProductDTO product) throws SQLException {
         productDAO.updateProduct(product);
     }
     public void deleteProduct(int id) throws SQLException {

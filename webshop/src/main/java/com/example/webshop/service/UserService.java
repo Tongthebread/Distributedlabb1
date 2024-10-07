@@ -1,5 +1,6 @@
 package com.example.webshop.service;
 
+import com.example.webshop.DTOS.UserDTO;
 import com.example.webshop.Utils.PasswordUtils;
 import com.example.webshop.database.UserDAO;
 import com.example.webshop.model.Role;
@@ -12,7 +13,7 @@ public class UserService {
     public UserService() {
         this.userDAO = new UserDAO();
     }
-    public Boolean RegisterUser(User user) {
+    public Boolean RegisterUser(UserDTO user) {
         try{
             if (userDAO.getUserbyUserName(user.getUsername())!= null){
                 return false;
@@ -29,9 +30,9 @@ public class UserService {
             return false;
         }
     }
-    public User authenticateUser(String username, String password) {
+    public UserDTO authenticateUser(String username, String password) {
         try {
-            User user = userDAO.getUserbyUserName(username);
+            UserDTO user = userDAO.getUserbyUserName(username);
             if (user != null) {
                 if (PasswordUtils.checkPassword(password, user.getPassword())) {
                     return user;
@@ -43,7 +44,7 @@ public class UserService {
         return null;
     }
 
-    public boolean authorizeUser(User user, Role requiredRole) {
+    public boolean authorizeUser(UserDTO user, Role requiredRole) {
         if (user == null || requiredRole == null) {
             return false;
         }

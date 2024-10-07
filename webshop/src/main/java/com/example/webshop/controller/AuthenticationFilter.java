@@ -16,6 +16,7 @@ public class AuthenticationFilter implements Filter {
 
     // Lista över sidor som inte kräver autentisering
     private static final List<String> excludedUrls = Arrays.asList(
+            "/index.jsp",
             "/login.jsp",
             "/register.jsp",
             "/productDetails.jsp",

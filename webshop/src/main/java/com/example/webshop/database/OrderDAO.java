@@ -1,5 +1,6 @@
 package com.example.webshop.database;
 
+import com.example.webshop.DTOS.OrderDTO;
 import com.example.webshop.model.Order;
 import com.example.webshop.model.OrderItem;
 import com.example.webshop.model.Status;
@@ -13,6 +14,11 @@ public class OrderDAO {
     private final String password = "psyke456SONG";
 
     private Connection connect() throws SQLException {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return DriverManager.getConnection(url, user, password);
     }
     public void InsertOrder(Order order, ArrayList<OrderItem> orderItems) throws SQLException {
@@ -85,15 +91,15 @@ public class OrderDAO {
         }
         return orders;
     }
-    public Order getOrdersById(int id) throws SQLException {
+    public OrderDTO getOrdersById(int id) throws SQLException {
         String query = "SELECT * FROM orders WHERE id = ?";
-        Order order = null;
+        OrderDTO order = null;
         try (Connection connection = connect();
              PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    order = new Order(
+                    order = new OrderDTO(
                             rs.getInt("id"),
                             rs.getInt("user_id"),
                             Status.valueOf(rs.getString("status")),
@@ -106,7 +112,7 @@ public class OrderDAO {
     }
 
 
-    public void UpdateOrderState(Order order) throws SQLException {
+    public void UpdateOrderState(OrderDTO order) throws SQLException {
         String updateQuery = "UPDATE orders SET status = ? WHERE id = ?";
         try (Connection connection = connect();
         PreparedStatement stmt = connection.prepareStatement(updateQuery)) {

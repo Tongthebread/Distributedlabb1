@@ -25,9 +25,6 @@ public class User {
     }
 
     public User() {
-        this.id = 0;
-        this.username = "";
-        this.password = "";
-        this.role = null;
+        this.role = Role.CUSTOMER;
     }
 }

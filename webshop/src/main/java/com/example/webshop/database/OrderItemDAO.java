@@ -1,5 +1,6 @@
 package com.example.webshop.database;
 
+import com.example.webshop.DTOS.OrderItemDTO;
 import com.example.webshop.model.OrderItem;
 
 import java.sql.*;
@@ -11,6 +12,11 @@ public class OrderItemDAO {
     private final String password = "psyke456SONG";
 
     private Connection connect() throws SQLException {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return DriverManager.getConnection(url, user, password);
     }
     public void insertOrderItem(OrderItem orderItem) throws SQLException {
@@ -26,15 +32,15 @@ public class OrderItemDAO {
         }
 
     }
-    ArrayList<OrderItem> getOrderItems(int orderId) throws SQLException {
+    ArrayList<OrderItemDTO> getOrderItems(int orderId) throws SQLException {
         String query = "SELECT * FROM order_items WHERE order_id = ?";
-        ArrayList<OrderItem> orderItems = new ArrayList<>();
+        ArrayList<OrderItemDTO> orderItems = new ArrayList<>();
         try (Connection connection = connect();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, orderId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    OrderItem item = new OrderItem(
+                    OrderItemDTO item = new OrderItemDTO(
                             resultSet.getInt("id"),
                             resultSet.getInt("order_id"),
                             resultSet.getInt("product_id"),
@@ -45,6 +51,6 @@ public class OrderItemDAO {
                 }
             }
         }
-        return orderItems;
+        return orderItems;-
     }
 }

@@ -1,4 +1,5 @@
 package com.example.webshop.controller;
+import com.example.webshop.DTOS.ProductDTO;
 import com.example.webshop.model.Product;
 import com.example.webshop.model.User;
 import com.example.webshop.service.ProductService;
@@ -7,6 +8,8 @@ import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import lombok.SneakyThrows;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,13 +24,12 @@ public class ProductServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ArrayList<Product> products = new ArrayList<>();
         try {
-            products = productService.getProducts();
+            ArrayList<ProductDTO> products = productService.getProducts();
+            req.setAttribute("productList", products);
+            req.getRequestDispatcher("/products.jsp").forward(req, resp);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        req.setAttribute("products", products);
-        req.getRequestDispatcher("WEB-INF/views/products.jsp").forward(req, resp);
     }
 }

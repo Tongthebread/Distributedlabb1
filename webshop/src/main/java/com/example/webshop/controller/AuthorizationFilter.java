@@ -19,8 +19,8 @@ public class AuthorizationFilter implements Filter {
 
     static {
         // Lägg till URL-prefix och motsvarande roll som krävs
-        protectedUrls.put("/admin", "admin");
-        protectedUrls.put("/orders", "staff");
+        protectedUrls.put("/admin", "ADMIN");
+        protectedUrls.put("/orders", "STAFF");
         // Lägg till fler skyddade URL:er vid behov
     }
 

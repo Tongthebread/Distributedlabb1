@@ -1,4 +1,5 @@
 package com.example.webshop.controller;
+import com.example.webshop.DTOS.ProductDTO;
 import com.example.webshop.model.Cart;
 import com.example.webshop.model.Product;
 import com.example.webshop.service.ProductService;
@@ -41,7 +42,7 @@ public class CartServlet extends HttpServlet {
 
         if ("add".equals(action)) {
             // Lägg till produkt i varukorgen
-            Product product = null;
+            ProductDTO product = null;
             try {
                 product = productService.searchProduct(productId);
             } catch (SQLException e) {

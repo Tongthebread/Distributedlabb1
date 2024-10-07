@@ -1,5 +1,7 @@
 package com.example.webshop.controller;
 
+import com.example.webshop.DTOS.ProductDTO;
+import com.example.webshop.DTOS.UserDTO;
 import com.example.webshop.model.Product;
 import com.example.webshop.model.User;
 import com.example.webshop.service.ProductService;
@@ -21,12 +23,12 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null || !"admin".equalsIgnoreCase(String.valueOf(user.getRole()))) {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Åtkomst nekad");
             return;
         }
-        ArrayList<Product> products = new ArrayList<>();
+        ArrayList<ProductDTO> products = new ArrayList<>();
         try {
             products = productService.getProducts();
         } catch (SQLException e) {
@@ -40,7 +42,7 @@ public class AdminServlet extends HttpServlet {
             throws ServletException, IOException {
         // Kontrollera om användaren är admin
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
 
         if (user == null || !"admin".equalsIgnoreCase(String.valueOf(user.getRole()))) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Åtkomst nekad");
@@ -56,7 +58,7 @@ public class AdminServlet extends HttpServlet {
             int stock = Integer.parseInt(request.getParameter("stock"));
             int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
-            Product product = new Product();
+            ProductDTO product = new ProductDTO();
             product.setName(name);
             product.setPrice(price);
             product.setStock(stock);

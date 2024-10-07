@@ -1,5 +1,6 @@
 package com.example.webshop.service;
 
+import com.example.webshop.DTOS.OrderDTO;
 import com.example.webshop.database.OrderDAO;
 import com.example.webshop.database.OrderItemDAO;
 import com.example.webshop.model.Order;
@@ -28,14 +29,14 @@ public class OrderService {
         return orderDAO.getOrdersByUserId(userId);
     }
 
-    public Boolean updateOrder(Order order) throws SQLException {
+    public Boolean updateOrder(OrderDTO order) throws SQLException {
         orderDAO.UpdateOrderState(order);
         return true;
     }
     public Boolean updateOrderStatus(int orderId, Status status) throws SQLException {
-        Order order = orderDAO.getOrdersById(orderId);
-        order.setStatus(status);
-        orderDAO.UpdateOrderState(order);
+        OrderDTO orderDTO = orderDAO.getOrdersById(orderId);
+        orderDTO.setStatus(status);
+        orderDAO.UpdateOrderState(orderDTO);
         return true;
     }
 }
